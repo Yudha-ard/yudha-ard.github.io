@@ -1,0 +1,336 @@
+:root {
+    --bg-color: #0A192F;
+    /* Biru Malam */
+    --card-color: #112240;
+    /* Biru Malam lebih terang */
+    --text-light: #CCD6F6;
+    /* Abu-abu kebiruan */
+    --text-white: #E6F1FF;
+    /* Putih kebiruan */
+    --text-dark: #8892B0;
+    /* Abu-abu gelap */
+    --accent-color: #64FFDA;
+    /* Hijau Toska */
+    --border-color: rgba(100, 255, 218, 0.1);
+    --mouse-x: -100px;
+    --mouse-y: -100px;
+}
+
+/* ===== Sembunyikan Kursor Asli & Pointer Kustom ===== */
+* {
+    cursor: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    background-image: radial-gradient(circle 400px at var(--mouse-x) var(--mouse-y), rgba(100, 255, 218, 0.05), transparent 80%);
+    background-repeat: no-repeat;
+}
+
+.custom-cursor {
+    width: 30px;
+    height: 30px;
+    border: 2px solid white;
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: all 0.1s ease-out;
+    z-index: 9999;
+}
+
+.custom-cursor.hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: var(--accent-color);
+    opacity: 0.5;
+}
+
+.custom-cursor.click {
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* ===== Efek Gelombang Klik ===== */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-effect 0.6s linear;
+    border: 2px solid white;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+@keyframes ripple-effect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+/* ==== Sidebar Kiri (Sticky) ==== */
+.left-sidebar {
+    width: 40%;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px 0;
+    box-sizing: border-box;
+}
+
+.profile-intro {
+    flex-grow: 1;
+}
+
+.profile-pic {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.left-sidebar h1 {
+    font-size: 2.7em;
+    color: var(--text-white);
+    margin: 0;
+}
+
+.left-sidebar h2 {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin: 5px 0 20px 0;
+}
+
+.profile-summary {
+    font-size: 1em;
+    max-width: 400px;
+}
+
+.section-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0;
+}
+
+.section-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.section-nav .line {
+    width: 30px;
+    height: 1px;
+    background-color: var(--text-dark);
+    transition: all 0.2s ease-in-out;
+}
+
+.section-nav a:hover .line {
+    width: 60px;
+    background-color: var(--text-white);
+}
+
+.section-nav a:hover .text {
+    color: var(--text-white);
+}
+
+.contact-links {
+    display: flex;
+    gap: 20px;
+}
+
+.contact-links a {
+    font-size: 1.8em;
+    color: var(--text-dark);
+    transition: all 0.2s ease-in-out;
+}
+
+.contact-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+/* ==== Konten Utama (Kanan) ==== */
+.main-content {
+    width: 60%;
+    padding: 60px 0;
+}
+
+section {
+    margin-bottom: 40px;
+    scroll-margin-top: 60px;
+}
+
+.main-content h3 {
+    font-size: 1.5em;
+    color: var(--text-white);
+    margin: 0 0 25px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.main-content h3::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background-color: #1E3A5F;
+}
+
+.card {
+    background-color: var(--card-color);
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out, border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card:hover {
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.card-header h4 {
+    font-size: 1.2em;
+    margin: 0;
+    color: var(--text-white);
+}
+
+.card-header span {
+    font-size: 0.9em;
+    color: var(--text-dark);
+}
+
+.card-subtitle {
+    font-weight: 500;
+    color: var(--text-dark);
+    margin: 2px 0 10px 0;
+}
+
+.main-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    font-size: 14px;
+}
+
+.main-content ul li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 5px;
+}
+
+.main-content ul li::before {
+    content: '▹';
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+}
+
+.thesis-title,
+.card-description {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--text-dark);
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.skills-list span {
+    background-color: rgba(100, 255, 218, 0.1);
+    color: var(--accent-color);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .left-sidebar {
+        position: static;
+        height: auto;
+        width: 100%;
+        padding: 30px 20px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .section-nav {
+        display: none;
+    }
+
+    .contact-links {
+        justify-content: center;
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 0 20px 40px 20px;
+        box-sizing: border-box;
+    }
+
+    .main-content h3 {
+        display: block;
+        text-align: center;
+    }
+
+    .main-content h3::after {
+        display: none;
+    }
+
+    .custom-cursor {
+        display: none;
+    }
+
+    * {
+        cursor: auto;
+    }
+}
